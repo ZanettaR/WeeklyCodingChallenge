@@ -21,20 +21,24 @@
  * 1 <= m + n <= 2000
  * -106 <= nums1[i], nums2[i] <= 106
  */
+import java.util.*;
+import java.util.stream.*;
 
 public class Median {
 
     public static double findMedian(int[] nums1, int[] nums2) {
-        int m = nums1.length;
-        int n = nums2.length;
+        Integer[] num1 = Arrays.stream( nums1 ).boxed().toArray( Integer[]::new );
+        List <Integer> n1 = Arrays.asList(num1);
+        Integer[] num2 = Arrays.stream( nums2 ).boxed().toArray( Integer[]::new );
+        List <Integer> n2 = Arrays.asList(num2);
+        List<Integer> newList = Stream.concat(n1.stream(), n2.stream())
+                .collect(Collectors.toList());
 
-        if(m == 0 && n == 0) return 0;
-        if( m == n){
-
+        int length = newList.size();
+        if(length % 2 == 0){
+            return (newList.get(length/2) + newList.get((length/2)+1)) / 2.0;
         }
-        else{}
-
-        return m+n;
+        else return newList.get(length/2);
     }
 
     public static void main(String[] args) {
